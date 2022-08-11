@@ -5,6 +5,7 @@ services:
     build: .
     # environment:
     #   - PORT=9003
+    image: couplewhocode11/docker-nodejs-workflow:latest
     volumes:
       - ./:/app:ro
       - /app/node_modules

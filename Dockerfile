@@ -1,7 +1,15 @@
-FROM node:16
+FROM node:14-alpine as base
 WORKDIR /app
 COPY package.json .
-RUN npm i
+COPY package-lock.json .
+
+FROM base as test
+RUN npm ci
 COPY . .
+RUN npm run test
+
+FROM base as prod
+RUN npm ci --production
 ENV PORT=9000
-#CMD [ "npm", "start" ]
+COPY . .
+CMD [ "npm", "start" ]
